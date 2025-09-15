@@ -1,0 +1,260 @@
+/* Estilos personalizados para Ferretería Maipú */
+
+/* Logo en el navbar */
+.navbar-brand img {
+    transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+/* Colores temáticos de Ferretería Maipú - Rojo, Negro, Blanco */
+:root {
+    --maipu-red: #dc3545;      /* Rojo principal del logo */
+    --maipu-black: #212529;    /* Negro del logo */
+    --maipu-gray: #343a40;     /* Gris oscuro */
+    --maipu-white: #ffffff;    /* Blanco */
+}
+
+/* Hero section con imagen de fondo - FORZAR RECARGA */
+.hero-section {
+    /* Imagen de fondo con overlay para mejor legibilidad */
+    background: 
+        linear-gradient(rgba(33, 37, 41, 0.6), rgba(220, 53, 69, 0.7)),
+        url('/static/img/fondo-hero.jpg?v=2');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: white;
+    padding: 100px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+/* Fallback cuando no hay imagen */
+.hero-section.no-image {
+    background: linear-gradient(135deg, var(--maipu-red) 0%, var(--maipu-black) 100%);
+}
+
+/* Banner principal */
+.hero-banner {
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-image-placeholder img {
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.banner-image-placeholder:hover img {
+    transform: scale(1.02);
+}
+
+/* Fallback para cuando no hay imagen */
+.banner-fallback {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--maipu-red) 0%, var(--maipu-black) 100%);
+    color: white;
+}
+
+/* Información rápida debajo del banner */
+.bg-light {
+    background-color: #f8f9fa !important;
+    border-bottom: 2px solid var(--maipu-red);
+}
+
+/* Botones con colores de marca */
+.btn-maipu {
+    background-color: var(--maipu-red);
+    border-color: var(--maipu-red);
+    color: white;
+}
+
+.btn-maipu:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: white;
+}
+
+/* Cards de productos con hover mejorado */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Footer con colores de marca - Negro */
+footer {
+    background: linear-gradient(135deg, var(--maipu-black) 0%, var(--maipu-gray) 100%);
+    color: white;
+    border-top: 3px solid var(--maipu-red);
+}
+
+/* Badges del carrito */
+.badge.bg-primary {
+    background-color: var(--maipu-red) !important;
+}
+
+/* Iconos con color de marca */
+.text-primary {
+    color: var(--maipu-red) !important;
+}
+
+/* Navbar mejorado con colores Maipú */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 2px solid var(--maipu-red);
+}
+
+.navbar-brand {
+    color: var(--maipu-black) !important;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: var(--maipu-gray) !important;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--maipu-red) !important;
+}
+
+/* Logo placeholder con fondo para mejor visibilidad */
+.logo-placeholder {
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Responsive para el logo */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 35px !important;
+    }
+}
+
+/* Animación para elementos de carga */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mejoras para las categorías */
+.category-card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    border-color: var(--maipu-red);
+    transform: translateY(-3px);
+}
+
+/* Estilo para el contador del carrito */
+#carrito-count {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Mejoras para los botones de acción */
+.btn-outline-primary {
+    border-color: var(--maipu-red);
+    color: var(--maipu-red);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--maipu-red);
+    border-color: var(--maipu-red);
+    color: white;
+}
+
+/* Botones primarios con colores Maipú */
+.btn-primary {
+    background-color: var(--maipu-red);
+    border-color: var(--maipu-red);
+}
+
+.btn-primary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Cards de productos mejoradas */
+.card {
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    border-color: var(--maipu-red);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.15);
+}
+
+/* Precios en rojo */
+.text-success, .price {
+    color: var(--maipu-red) !important;
+}
+
+/* Enlaces en rojo */
+a {
+    color: var(--maipu-red);
+}
+
+a:hover {
+    color: #c82333;
+}
+
+/* Badges y etiquetas */
+.badge {
+    background-color: var(--maipu-red) !important;
+}
+
+/* Separadores */
+hr {
+    border-color: var(--maipu-red);
+    opacity: 0.3;
+}
+
+/* Sección de marcas */
+.brand-item {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: white;
+    font-size: 0.85em;
+}
+
+.brand-item:hover {
+    border-color: var(--maipu-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.1);
+}
+
+/* Navbar brand mejorado */
+.navbar-brand {
+    text-decoration: none !important;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}

@@ -1,0 +1,1 @@
+web: gunicorn ferreteria_ecommerce.wsgi --log-file -

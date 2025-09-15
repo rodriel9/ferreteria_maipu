@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ titulo|default:"Ferretería Maipú" }}{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% load static %}
+    <!-- Estilos personalizados de Ferretería Maipú -->
+    <link rel="stylesheet" href="{% static 'css/ferreteria-maipu.css' %}?v=2">
+    
+    <style>
+        :root {
+            --primary-color: #dc3545;  /* Rojo principal */
+            --secondary-color: #343a40; /* Negro/gris oscuro */
+            --accent-color: #ffffff;    /* Blanco */
+            --maipu-red: #dc3545;
+            --maipu-black: #212529;
+            --maipu-gray: #343a40;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .card-product {
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .card-product:hover {
+            transform: translateY(-5px);
+        }
+        
+        .precio-original {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        
+        .precio-oferta {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .badge-descuento {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 80px 0;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'productos:home' %}">
+                <!-- LOGO: Guarda tu logo como 'logo-maipu.png' en static/img/ -->
+                <!-- <img src="{% static 'img/logo-maipu.png' %}" alt="Ferretería Maipú" height="50" class="me-2"> -->
+                
+                <!-- Placeholder temporal con los colores de tu marca -->
+                <div class="logo-placeholder d-inline-flex align-items-center justify-content-center me-2" style="width: 50px; height: 50px; background: linear-gradient(45deg, #dc3545, #212529); border-radius: 8px;">
+                    <i class="fas fa-tools text-white"></i>
+                </div>
+                <div>
+                    <strong class="d-block" style="line-height: 1.2;">Ferretería Maipú</strong>
+                    <small class="text-muted" style="font-size: 0.75em;">Av. Maipú 255</small>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'productos:home' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'productos:catalogo' %}">Catálogo</a>
+                    </li>
+                </ul>
+                
+                <!-- Buscador -->
+                <form class="d-flex me-3" method="GET" action="{% url 'productos:catalogo' %}">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Buscar productos..." 
+                           value="{{ buscar_actual }}">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                
+                <!-- Carrito -->
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'carrito:ver' %}" id="carrito-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge bg-primary" id="carrito-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-tools me-2"></i>Ferretería Maipú</h5>
+                    <p>Todo lo que necesitas para tu obra y hogar en Maipú.</p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Enlaces</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'productos:home' %}" class="text-light">Inicio</a></li>
+                        <li><a href="{% url 'productos:catalogo' %}" class="text-light">Catálogo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Contacto</h6>
+                    <p class="mb-1"><i class="fas fa-phone me-2"></i>3794-001411</p>
+                    <p class="mb-1"><i class="fab fa-instagram me-2"></i>@maipuferreteria</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Av. Maipú 255, Maipú</p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Horarios</h6>
+                    <p class="mb-1"><small>Lun-Sáb: 08-13:30hs | 16-21:30hs</small></p>
+                    <p class="mb-1"><small>Domingo: 10-13:30hs</small></p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2025 Ferretería Maipú. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Global del Carrito -->
+    <script>
+    // Cargar contador del carrito al iniciar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarContadorCarrito();
+    });
+
+    // Función global para agregar productos al carrito
+    function agregarAlCarrito(productoId, cantidad = 1) {
+        const formData = new FormData();
+        formData.append('cantidad', cantidad);
+        formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+        
+        fetch(`/carrito/agregar/${productoId}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                mostrarNotificacion(data.message, 'success');
+                actualizarContadorCarrito();
+                
+                // Animar el ícono del carrito
+                const carritoIcon = document.getElementById('carrito-link');
+                carritoIcon.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    carritoIcon.classList.remove('animate__animated', 'animate__pulse');
+                }, 1000);
+            } else {
+                mostrarNotificacion(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mostrarNotificacion('Error al agregar el producto al carrito', 'error');
+        });
+    }
+
+    // Actualizar contador del carrito
+    function actualizarContadorCarrito() {
+        fetch('/carrito/count/')
+        .then(response => response.json())
+        .then(data => {
+            const contador = document.getElementById('carrito-count');
+            if (contador) {
+                contador.textContent = data.count;
+                
+                // Cambiar color del badge según la cantidad
+                if (data.count > 0) {
+                    contador.classList.remove('bg-secondary');
+                    contador.classList.add('bg-primary');
+                } else {
+                    contador.classList.remove('bg-primary');
+                    contador.classList.add('bg-secondary');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener contador del carrito:', error);
+        });
+    }
+
+    // Función para mostrar notificaciones
+    function mostrarNotificacion(mensaje, tipo) {
+        const alertClass = {
+            'success': 'alert-success',
+            'error': 'alert-danger',
+            'warning': 'alert-warning',
+            'info': 'alert-info'
+        };
+        
+        const iconClass = {
+            'success': 'fas fa-check-circle',
+            'error': 'fas fa-exclamation-circle',
+            'warning': 'fas fa-exclamation-triangle',
+            'info': 'fas fa-info-circle'
+        };
+        
+        // Crear elemento de notificación
+        const notificacion = document.createElement('div');
+        notificacion.className = `alert ${alertClass[tipo]} alert-dismissible fade show position-fixed`;
+        notificacion.style.cssText = 'top: 80px; right: 20px; z-index: 9999; min-width: 300px; max-width: 400px;';
+        notificacion.innerHTML = `
+            <i class="${iconClass[tipo]} me-2"></i>
+            ${mensaje}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notificacion);
+        
+        // Auto-dismiss después de 4 segundos
+        setTimeout(() => {
+            if (notificacion.parentNode) {
+                notificacion.classList.remove('show');
+                setTimeout(() => notificacion.remove(), 150);
+            }
+        }, 4000);
+    }
+
+    // Obtener CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

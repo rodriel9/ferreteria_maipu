@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section con Banner Principal -->
+<section class="hero-banner">
+    <div class="container-fluid p-0">
+        <!-- Mostrar imagen si existe, sino mostrar fallback -->
+        <div class="banner-fallback">
+            <div class="hero-section text-center">
+                <div class="container">
+                    <div class="mb-4">
+                        <div class="logo-hero d-inline-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px; background: rgba(255, 255, 255, 0.2); border-radius: 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);">
+                            <i class="fas fa-tools fa-3x text-white"></i>
+                        </div>
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4">Ferretería Maipú</h1>
+                    <p class="lead mb-2">Tu ferretería de confianza en Maipú</p>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Av. Maipú 255, Maipú - Mendoza</p>
+                    <p class="mb-4"><i class="fas fa-phone me-2"></i>3794-001411 | <i class="fab fa-instagram me-2"></i>@maipuferreteria</p>
+                    <div class="mb-4">
+                        <span class="badge me-2 p-2" style="background: rgba(255, 255, 255, 0.9); color: #212529; backdrop-filter: blur(10px);">Lun-Sáb: 08-13:30hs | 16-21:30hs</span>
+                        <span class="badge p-2" style="background: rgba(255, 255, 255, 0.9); color: #212529; backdrop-filter: blur(10px);">Dom: 10-13:30hs</span>
+                    </div>
+                    <a href="{% url 'productos:catalogo' %}" class="btn btn-light btn-lg me-3">
+                        <i class="fas fa-tools me-2"></i>Ver Catálogo
+                    </a>
+                    <a href="tel:3794001411" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-phone me-2"></i>Llamar
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CUANDO TENGAS TU IMAGEN: Descomenta esto y comenta el fallback de arriba -->
+        <!--
+        <div class="banner-image-container">
+            <img src="{% static 'img/banner-principal.jpg' %}" alt="Ferretería Maipú - Banner Principal" class="img-fluid w-100" style="height: 400px; object-fit: cover;">
+        </div>
+        -->
+    </div>
+</section>
+
+<!-- Sección de información rápida -->
+<section class="py-4 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-3">
+                <h5><i class="fas fa-phone text-danger me-2"></i>3794-001411</h5>
+                <p class="mb-0">Llamanos para consultas</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h5><i class="fas fa-map-marker-alt text-danger me-2"></i>Av. Maipú 255</h5>
+                <p class="mb-0">Maipú, Mendoza</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h5><i class="fab fa-instagram text-danger me-2"></i>@maipuferreteria</h5>
+                <p class="mb-0">Seguinos en Instagram</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h5><i class="fas fa-clock text-danger me-2"></i>Horarios</h5>
+                <p class="mb-0"><small>Lun-Sáb: 08-21:30hs</small></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Marcas que Trabajamos -->
+<section class="py-4 bg-white">
+    <div class="container">
+        <h4 class="text-center mb-4">🏷️ Marcas que Trabajamos</h4>
+        <div class="row text-center">
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>SICA</strong>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>CROSSMASTER</strong>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>POWER PACIO</strong>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>FERRUM</strong>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>BREMEN</strong>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 mb-3">
+                <div class="brand-item p-2">
+                    <strong>Y MÁS...</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categorías Principales -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Nuestras Categorías</h2>
+        <div class="row">
+            {% for categoria in categorias %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center h-100">
+                    {% if categoria.imagen %}
+                    <img src="{{ categoria.imagen.url }}" class="card-img-top" alt="{{ categoria.nombre }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa;">
+                        <i class="fas fa-tools fa-3x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ categoria.nombre }}</h5>
+                        <p class="card-text">{{ categoria.descripcion|truncatewords:10 }}</p>
+                        <a href="{% url 'productos:categoria' categoria.slug %}" class="btn btn-primary">
+                            Ver Productos
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Productos Destacados -->
+{% if productos_destacados %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Productos Destacados</h2>
+        <div class="row">
+            {% for producto in productos_destacados %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card card-product">
+                    {% if producto.tiene_oferta %}
+                    <span class="badge bg-danger badge-descuento">
+                        -{{ producto.descuento_porcentaje }}%
+                    </span>
+                    {% endif %}
+                    
+                    {% if producto.imagenes.first %}
+                    <img src="{{ producto.imagenes.first.imagen.url }}" class="card-img-top" 
+                         alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top d-flex align-items-center justify-content-center" 
+                         style="height: 200px; background-color: #f8f9fa;">
+                        <i class="fas fa-tools fa-2x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre|truncatewords:5 }}</h6>
+                        <p class="card-text text-muted small">{{ producto.descripcion_corta|truncatewords:8 }}</p>
+                        
+                        <div class="mb-2">
+                            {% if producto.tiene_oferta %}
+                            <span class="precio-original">${{ producto.precio }}</span>
+                            <span class="precio-oferta">${{ producto.precio_oferta }}</span>
+                            {% else %}
+                            <span class="fw-bold">${{ producto.precio }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Stock: {{ producto.stock }}</small>
+                            <div>
+                                <a href="{% url 'productos:detalle' producto.slug %}" 
+                                   class="btn btn-sm btn-outline-primary">Ver</a>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'productos:catalogo' %}" class="btn btn-primary btn-lg">
+                Ver Todos los Productos
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Características -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-shipping-fast fa-3x text-primary"></i>
+                </div>
+                <h5>Envío Rápido</h5>
+                <p>Entrega en 24-48 horas en Maipú y Gran Mendoza</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                </div>
+                <h5>Garantía</h5>
+                <p>Todos nuestros productos tienen garantía</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-credit-card fa-3x text-primary"></i>
+                </div>
+                <h5>Pago Seguro</h5>
+                <p>Múltiples medios de pago disponibles</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-headset fa-3x text-primary"></i>
+                </div>
+                <h5>Atención 24/7</h5>
+                <p>Soporte técnico y comercial</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

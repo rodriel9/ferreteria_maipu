@@ -22,7 +22,7 @@
     /* Imagen de fondo con overlay para mejor legibilidad */
     background: 
         linear-gradient(rgba(33, 37, 41, 0.6), rgba(220, 53, 69, 0.7)),
-        url('/static/img/fondo-hero.jpg?v=2');
+        url('/static/img/fondo-hero.jpg?v=2') !important; /* Added !important for diagnosis */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

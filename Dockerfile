@@ -20,4 +20,4 @@ RUN python manage.py collectstatic --noinput
 RUN python manage.py migrate
 
 # Run the application
-CMD gunicorn ferreteria_ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 4
+CMD sh -c "gunicorn ferreteria_ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 4"
